@@ -1,0 +1,76 @@
+<div fxLayout="row">
+    <div fxLaout = "Column" fxFlex = "50"> &nbsp;</div>
+        <div fxLaout = "Column" fxFlex = "50">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#EditAddEmployee" (click)="openModel()"
+        style="margin-left: 80px; margin-bottom: 20px;">Create New Employee</button>
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="card">
+        <!-- <h3 class="text-center"> Employee List</h3> -->
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <th>Id</th>
+                    <th> Name</th>
+                    <th> Dept</th>
+                    <th> Salary </th>
+                    <th> Action</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employees">
+                        <td> {{ employee.employeeId}}</td>
+                        <td> {{ employee.employeeName}}</td>
+                        <td> {{ employee.employeeDept}}</td>
+                        <td> {{ employee.employeeSalary}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditAddEmployee"
+                                (click)="openModel(employee)">Edit</button>
+                            <button (click)="deleteEmployee(employee.employeeId)" class="btn btn-danger"
+                                style="margin-left: 10px"> Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="EditAddEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Name</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="employeeToModify.employeeName">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Dept</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="employeeToModify.employeeDept">
+
+
+
+                </div><br>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Salary</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="employeeToModify.employeeSalary">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" *ngIf="creatingMode"
+                        (click)="addEmployee()">Save</button>
+                    <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
+                        (click)="updateEmployee()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
